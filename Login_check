@@ -1,0 +1,24 @@
+
+public class landingPage {
+public static void main(String[] args) throws InterruptedException {
+	        try (Playwright playwright = Playwright.create()) {
+	            Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+	            BrowserContext context = browser.newContext();
+	            Page page = context.newPage();
+	            page.navigate("https://app.rationarium.com");	            
+	            page.waitForLoadState(LoadState.LOAD);
+	            page.locator("//button[text()=\"Sign In\"]").click();
+	            Thread.sleep(6000);
+	            page.locator("//button[text()=\"Sign In\"]").click();
+	            page.waitForLoadState(LoadState.LOAD);            
+	            page.locator("//input[@formcontrolname=\"username\"]").fill("tester@test.com");
+	            Thread.sleep(5000);
+	            page.locator("//input[@formcontrolname=\"password\"]").fill("test12");
+	            Thread.sleep(5000);
+	            page.locator("(//button[text()=\"Sign In\"])[2]").click();
+	            Thread.sleep(5000);
+	            Locator alert_popup = page.locator("//span[@class=\"mat-simple-snack-bar-content\"]");
+	            System.out.println(alert_popup.textContent());
+	            }
+}
+}
